@@ -5,12 +5,13 @@
  * @param  {string} path  The corresponding endpoint defined in our server (src/routes/oauth)
  */
 const getOAuth = async path => {
+  console.log('hit button!');
   let res = await fetch(path, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }
   });
 
-  res = await res.json();
-  console.log('Auth Endpoint:', res.url);
-  window.location.href = res.url;
+  let resData = await res.json();
+  console.log('Auth Endpoint:', resData.url);
+  window.location.href = resData.url;
 };
