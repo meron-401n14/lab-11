@@ -20,7 +20,7 @@ router.get('/github', (req, res, next) => {
   };
 //console.log('options', options);
   githubOAuthUrl += '?';
-  //console.log('am here!');
+  console.log('am here!');
   Object.keys(options).forEach((key, indx) => {
    githubOAuthUrl += key + '=' + encodeURIComponent(options[key]);
    githubOAuthUrl += '&';
