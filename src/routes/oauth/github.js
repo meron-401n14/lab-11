@@ -34,12 +34,12 @@ router.get('/github', (req, res, next) => {
 // query urls:
 // https://github.com/login/oauth/authorize?client_id=d79b4faed9667d24e532&redirect_uri=localhost:1234/path
 
- 
-
-
 router.get('/github-oauth', async (req, res, next) => {
   let data = await githubMW(req);
   res.status(200).json({ name: data.name, email: data.email });
 });
 
 module.exports = router;
+ 
+
+

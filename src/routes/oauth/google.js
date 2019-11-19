@@ -42,18 +42,19 @@ router.get('/google', (req, res, next) => {
 });
 
 /**
- * @route GET /google-oauth implementing the basic oauth
- * This route then we reach the route endpoint
- * @param {object}   req   request basic 
- * @param {object}   res   The response object
+ * @route GET /google-oauth  this is the route our client can go after generated URl
+ * @param {object}   req   request middleware function 
+ * @param {object}   res   The response object user data from google
  * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
  * @security basicAuth
  * @returns {object} 200 - An object with a key-value token, which represents our generated JSON Web Token
  */
+ 
 router.get('/google-oauth', async (req, res, next) => {
   let data = await googleMW(req);
 
-  // TODO: Comment
+  // end point res status 200 (success) , data from query param that google send to us 
+  // that is specific to google 
   res.status(200).json({ name: data.name, email: data.email });
 
   

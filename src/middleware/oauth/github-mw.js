@@ -1,12 +1,18 @@
 const superagent = require('superagent');
 
-let getUserData = async request => {};
-// TODO: JSDoc Comment
+
+/**
+ * request require authenticated user
+ * @param {object} request
+*/
 let getUserDatag = async request => {
-  // TODO: Comment
+  //  query param helps to get our access token
   let authCode = request.query.code;
 
-  // TODO: Comment
+  /**
+ *creating post request and grab data from github
+ * we sending all the content of the body 
+ */
   let githubRes = await superagent
     .post(process.env.GITHUB_TOKEN_SERVICE)
     .type('form')
@@ -18,15 +24,19 @@ let getUserDatag = async request => {
       grant_type: 'authorization_code'
     });
 
-  // TODO: Comment
+  // grab the actual token 
   let access_token = githubRes.body.access_token;
 
-  // TODO: Comment
+  // get request github API
+  // set header / which github looking for 
   googleRes = await superagent
     .get(process.env.GITHUB_API)
     .set('Authorization', `Bearer ${access_token}`);
 
-  // TODO: Comment
+  /**
+   * @return {object}
+   * this is basic API and have user data
+   */
   let userData = githubRes.body;
   return userData;
 };
