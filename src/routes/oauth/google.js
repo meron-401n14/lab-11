@@ -18,7 +18,8 @@ router.get('/google', (req, res, next) => {
   let googleOAuthURL = process.env.GOOGLE_AUTH_SERVICE;
   let options = {
     client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri:process.env.GOOGLE_URL + '/google-oauth',
+    redirect_uri:"https://lab-11app.herokuapp.com/google-oauth",
+    //+ '/google-oauth',
    
     scope: 'email openid profile',
     prompt: 'consent',
@@ -26,7 +27,7 @@ router.get('/google', (req, res, next) => {
   };
 
   /**
-   * google authorzation server URl variable concat with query
+   * google authorzation server URl param
    */
   googleOAuthURL += '?';
   // google authorization server url variable 
