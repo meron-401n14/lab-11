@@ -1,4 +1,4 @@
-# LAB - 
+# LAB - 11
 
 ## OAuth
 
@@ -19,7 +19,12 @@
 
 #### Running the app
 * `npm start` or `nodemon index.js`
-
+* TODO: README Question:
+  // Now that we have some data about the user, how would we go about
+  // adding this user to our database?
+  //email and name of 
+  // What data is missing?
+  // What considerations about storing this data do we need to take?
   
 #### Tests
 * How do you run tests?
@@ -27,7 +32,7 @@
 * What assertions need to be / should be made?
 
 #### UML
-Link to an image of the UML for your application and response to events
+* ![Google-OAuth](Google-OAuth.jpg)
 
 
 
