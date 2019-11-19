@@ -25,7 +25,7 @@ function basicDecode(authString) {
  * @param  {object}   res   The response object. Because this is just middleware, we won't be editing the response value in this function
  * @param  {Function} next  This is what we use to either go to the next middleware or endpoint for our route, or to go to some error handling middleware
  */
-module.exports = async (req, res, next) => {
+module.exports = async ((req, res, next) => {
   // First, we want to get the authorization string from the header
   let auth = req.headers.authorization;
 
@@ -54,4 +54,4 @@ module.exports = async (req, res, next) => {
     req.user = user;
     next();
   } else next('User not found');
-};
+});

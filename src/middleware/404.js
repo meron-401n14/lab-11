@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 /**
@@ -7,6 +8,7 @@
  * @param  {Function} next  The next function to continue the middleware / endpoint chain. We don't call it in this function, because any error should be the mark of the end of our chain
  * @return {404}            We don't send any data in our response, instead we just set a status code and status message as our Not Found error, and then we end our request-response chain
  */
+// eslint-disable-next-line no-undef
 module.exports = (req, res, next) => {
   let error = { error: 'Resource Not Found' };
   res.statusCode = 404;

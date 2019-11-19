@@ -15,7 +15,7 @@ const encode = (username, password) => {
  * This function captures user input from the form, encodes the username and password, and then sends a request to our server, asking our server to authenticate the user and return us a token
  * @param  {object} e  This is the event object that is returned from the form HTML element. We need this so that we can prevent the form from causing a page refresh and so that we can grab the form inputs
  */
-const basicAuth = async e => {
+const basicAuth = async (e => {
   e.preventDefault();
 
   // Grab form inputs

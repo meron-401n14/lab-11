@@ -20,7 +20,7 @@ supertester.server = server => supertest(server);
 /**
  * Typically used in Jest beforeAll hook
  */
-supertester.startDB = async () => {
+supertester.startDB = async  () => {
   mongoServer = new MongoMemoryServer();
 
   const mongoUri = await mongoServer.getConnectionString();
