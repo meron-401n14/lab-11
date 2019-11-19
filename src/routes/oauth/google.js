@@ -18,7 +18,7 @@ router.get('/google', (req, res, next) => {
   let googleOAuthURL = process.env.GOOGLE_AUTH_SERVICE;
   let options = {
     client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri:process.env.HOME_URL + '/google-oauth',
+    redirect_uri:process.env.GOOGLE_URL + '/google-oauth',
    
     scope: 'email openid profile',
     prompt: 'consent',
