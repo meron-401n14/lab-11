@@ -25,13 +25,13 @@ let getUserDatag = async request => {
     });
 
   // grab the actual token
-  let access_token = githubRes.body.access_token;
+  let token = githubRes.body.access_token;
 
   // get request github API
   // set header / which github looking for
   githubRes = await superagent
     .get(process.env.GITHUB_API)
-    .set('Authorization', `Bearer ${access_token}`);
+    .set('Authorization', `Bearer ${token}`);
 
   /**
    * @return {object}

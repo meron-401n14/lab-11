@@ -55,7 +55,7 @@ router.get('/google', (req, res, next) => {
 
 router.get('/google-oauth', async (req, res, next) => {
   let userData = await googleMW(req);
- // console.log(data);
+  // console.log(data);
   //send point res status 200 (success) , data from query param that google send to us
   // that is specific to google
   res.status(200).json({ name: userData.name, email: userData.email });

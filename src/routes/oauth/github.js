@@ -37,6 +37,7 @@ router.get('/github', (req, res, next) => {
 
 router.get('/github-oauth', async (req, res, next) => {
   let data = await githubMW(req);
+  console.log(data);
   res.status(200).json({ name: data.name, email: data.email });
 
 });
