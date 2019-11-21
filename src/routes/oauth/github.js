@@ -5,11 +5,20 @@ const express = require('express');
 const githubMW = require('../../middleware/oauth/github-mw.js');
 const router = express.Router();
 
+
+/**
+ * @route GET /github
+ * This route is build a string getting strings form process env variable and create options from env variable
+ * @param {object}   req   The request string variable from environment variable env
+ * @param {object}   res   sending query string format
+ * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
+ * @security basicAuth
+ * @returns {object} 200 - url string query format
+ */
+
 router.get('/github', (req, res, next) => {
-  //console.log('in the /github route');
+
   let githubOAuthUrl = process.env.GITHUB_AUTH_SERVICE;
-
-
   let options = {
     client_id: process.env.GITHUB_CLIENT_ID,
     redirect_uri: process.env.GIT_URL + '/github-oauth',
@@ -18,31 +27,41 @@ router.get('/github', (req, res, next) => {
     state: 'random',
     allow_signup: true,
   };
-  //console.log('options', options);
-  githubOAuthUrl += '?';
-  console.log('am here!');
 
+  // query string that built using environment variable(google authorization server url variable)
+  githubOAuthUrl += '?';
+  //console.log('am here!');
+  // make them all in to string query format
   Object.keys(options).forEach((key, indx) => {
     githubOAuthUrl += key + '=' + encodeURIComponent(options[key]);
     githubOAuthUrl += '&';
-
-    //console.log(githubOAuthUrl)
-
   });
-  console.log(githubOAuthUrl);
   res.status(200).json({ url: githubOAuthUrl });
 });
+
+/**
+ * @route GET /google-oauth  this is the route our client can go after generated URl
+ * @param {object}   req   request middleware function
+ * @param {object}   res   The response object user data from google
+ * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
+ * @security basicAuth
+ * @returns {object} 200 - An object with a key-value token, which represents our generated JSON Web Token and data which using token
+ */
 // query urls:
 // https://github.com/login/oauth/authorize?client_id=d79b4faed9667d24e532&redirect_uri=localhost:1234/path
 
 router.get('/github-oauth', async (req, res, next) => {
   let data = await githubMW(req);
-  console.log(data);
+
   res.status(200).json({ name: data.name, email: data.email });
 
 });
 
 module.exports = router;
+
+
+
+
 
 
 

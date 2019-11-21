@@ -6,17 +6,14 @@ const googleMW = require('../../middleware/oauth/google-mw.js');
 const router = express.Router();
 /**
  * @route GET /google
- * This route then we reach the route endpoint
- * @param {object}   req   The request object. Even though this is a post, we don't actually need any body data, all the sign in data should be in req.headers.authorization
- * @param {object}   res   The response object
+ * This route is build a string getting strings form process env variable and create options from env variable
+ * @param {object}   req   The request string variable from environment variable env
+ * @param {object}   res   sending query string format
  * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
  * @security basicAuth
- * @returns {object} 200 - An object with a key-value token, which represents our generated JSON Web Token
+ * @returns {object} 200 - url string query format
  */
-//build string
-//get strings from process environment varibale
-//creating optios based of from process env variable
-//
+
 router.get('/google', (req, res, next) => {
   let googleOAuthURL = process.env.GOOGLE_AUTH_SERVICE;
   let options = {
@@ -29,12 +26,10 @@ router.get('/google', (req, res, next) => {
     response_type: 'code',
   };
 
-  /**
-   * make option or build string in to string query format
-   */
+  // query string that built using environment variable(google authorization server url variable)
   googleOAuthURL += '?';
-  // google authorization server url variable
-  // make them in to string query format
+
+  // make them all in to string query format
   Object.keys(options).forEach((key, indx) => {
     googleOAuthURL += key + '=' + encodeURIComponent(options[key]);
     googleOAuthURL += '&';
@@ -50,7 +45,7 @@ router.get('/google', (req, res, next) => {
  * @param {object}   res   The response object user data from google
  * @param {Function} next  We don't use it in here, but this is our method for going to the next middleware or error middleware in the request-response chain
  * @security basicAuth
- * @returns {object} 200 - An object with a key-value token, which represents our generated JSON Web Token
+ * @returns {object} 200 - An object with a key-value token, which represents our generated JSON Web Token and data using that token
  */
 
 router.get('/google-oauth', async (req, res, next) => {

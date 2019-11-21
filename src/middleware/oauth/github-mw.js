@@ -2,17 +2,15 @@ const superagent = require('superagent');
 
 
 /**
- * request require authenticated user
- * @param {object} request
-*/
+ * this is a request function inorder to get user token from web
+ * by sending(post) string parameter which is built from process environment variable
+ * @param {object} request for query to access user infromation
+ */
 let getUserDatag = async request => {
-  //  query param helps to get our access token
+  // assign  a variable to access github query code
   let authCode = request.query.code;
 
-  /**
- *creating post request and grab data from github
- * we sending all the content of the body
- */
+  //make request to google by posting end point variables from process environemnt in order to get token
   let githubRes = await superagent
     .post(process.env.GITHUB_TOKEN_SERVICE)
     .type('form')
@@ -24,19 +22,15 @@ let getUserDatag = async request => {
       grant_type: 'authorization_code',
     });
 
-  // grab the actual token
+  // grab the actual token and assign to token variable
   let token = githubRes.body.access_token;
 
-  // get request github API
-  // set header / which github looking for
+  //set header (Bearer based token) that the endpoint required for as authorization and get github API
   githubRes = await superagent
     .get(process.env.GITHUB_API)
     .set('Authorization', `Bearer ${token}`);
 
-  /**
-   * @return {object}
-   * this is basic API and have user data
-   */
+  // user data which we get from github end point using token
   let userData = githubRes.body;
   return userData;
 };
