@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 'use strict';
 
 /**
@@ -15,7 +16,7 @@ const encode = (username, password) => {
  * This function captures user input from the form, encodes the username and password, and then sends a request to our server, asking our server to authenticate the user and return us a token
  * @param  {object} e  This is the event object that is returned from the form HTML element. We need this so that we can prevent the form from causing a page refresh and so that we can grab the form inputs
  */
-const basicAuth = async (e => {
+const basicAuth = async (e) => {
   e.preventDefault();
 
   // Grab form inputs
@@ -29,32 +30,31 @@ const basicAuth = async (e => {
     // Encode username and password
     let bAuthData = encode(username, password);
     sendMessage(`Converted data to encoded:\n${bAuthData}`);
+  }
+  // POST to /signin route - I want to verify this user
+  // and receive a JSON Web Token
+  let authResponse =await fetch('/signin', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: bAuthData,
+    },
+  });
 
-    // POST to /signin route - I want to verify this user
-    // and receive a JSON Web Token
-    let authResponse = await fetch('/signin', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: bAuthData
-      }
-    });
+  // Grab the response body as JSON
+  let authData = authResponse.json();
 
-    // Grab the response body as JSON
-    let authData = await authResponse.json();
+  sendMessage(
+    `Received response:\n${authResponse.status} ${authResponse.statusText}`,
+  );
 
+  // If we got a successful response, we should have a token
+  if (authResponse.status === 200) {
     sendMessage(
-      `Received response:\n${authResponse.status} ${authResponse.statusText}`
+      `Successfully logged in and recieved token:\n${authData.token}`,
     );
-
-    // If we got a successful response, we should have a token
-    if (authResponse.status === 200) {
-      sendMessage(
-        `Successfully logged in and recieved token:\n${authData.token}`
-      );
-      console.log(authData.token);
-    }
+    console.log(authData.token);
   }
 };
 
@@ -86,7 +86,7 @@ const sendMessage = message => {
 
   $('#bAuth-message').append(toast);
   $('#' + toastId).toast({
-    delay: 3000
+    delay: 3000,
   });
 
   $('#' + toastId).toast('show');

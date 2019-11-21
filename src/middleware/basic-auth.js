@@ -15,7 +15,7 @@ function basicDecode(authString) {
 
   return {
     username: username,
-    password: password
+    password: password,
   }; // return decoded
 }
 
@@ -51,6 +51,7 @@ module.exports = async (req, res, next) => {
   // user is not valid, we throw the next error middleware in the
   // chain
   if (user) {
+    // eslint-disable-next-line require-atomic-updates
     req.user = user;
     next();
   } else next('User not found');

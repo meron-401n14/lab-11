@@ -11,7 +11,7 @@ let getUserDatag = async request => {
 
   /**
  *creating post request and grab data from github
- * we sending all the content of the body 
+ * we sending all the content of the body
  */
   let githubRes = await superagent
     .post(process.env.GITHUB_TOKEN_SERVICE)
@@ -20,16 +20,16 @@ let getUserDatag = async request => {
       code: authCode,
       client_id: process.env.GITHUB_CLIENT_ID,
       client_secret: process.env.GITHUB_CLIENT_SECRET,
-      redirect_uri: `${process.env.HOME_URL}/github-oauth`,
-      grant_type: 'authorization_code'
+      redirect_uri: `${process.env.GIT_URL}/github-oauth`,
+      grant_type: 'authorization_code',
     });
 
-  // grab the actual token 
+  // grab the actual token
   let access_token = githubRes.body.access_token;
 
   // get request github API
-  // set header / which github looking for 
-  googleRes = await superagent
+  // set header / which github looking for
+  githubRes = await superagent
     .get(process.env.GITHUB_API)
     .set('Authorization', `Bearer ${access_token}`);
 
