@@ -10,7 +10,7 @@
 * [Heroku](https://lab-11app.herokuapp.com/)
 
 #### Documentation
-* 
+* swagger and JSDOC comments
 
 ### Setup
 #### `.env` requirements
