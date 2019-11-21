@@ -8,7 +8,7 @@ const authError = require('../middleware/401.js');
 const basicAuth = require('../middleware/basic-auth.js');
 const googleGetData = require('./oauth/google.js');
 
-const users = new Users();
+const user = new Users();
 /**
  * @route POST /signin
  * This route authenticates and signs in a user. We first run the middleware basicAuth, and for basicAuth we have some catching error middleware, and then we reach the route endpoint

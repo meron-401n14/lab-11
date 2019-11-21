@@ -35,19 +35,19 @@ let getUserData = async request => {
   let token = googleRes.body.access_token;
 
   /**
-  *google API requires authenticated user
-  * set token to api instance or api-service call
-   */
-  let userData = await superagent
-    .get(process.env.GOOGLE_API)
-    .set('Authorization', `Bearer ${token}`);
-
-  /**
     * @return {object}
     * this is basic API and have user data
     */
   //let userData = googleRes.body;
-  return userData;
+  /**
+  *google API requires authenticated user
+  * set token to api instance or api-service call
+   */
+  let userRes = await superagent
+    .get(process.env.GOOGLE_API)
+    .set('Authorization', `Bearer ${token}`);
+
+  return userRes.body;
 };
 
 module.exports = getUserData;
