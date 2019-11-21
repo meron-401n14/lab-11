@@ -54,11 +54,11 @@ router.get('/google', (req, res, next) => {
  */
 
 router.get('/google-oauth', async (req, res, next) => {
-  let data = await googleMW(req);
-  console.log(data);
+  let userData = await googleMW(req);
+ // console.log(data);
   //send point res status 200 (success) , data from query param that google send to us
   // that is specific to google
-  res.status(200).json({ name: data.name, email: data.email });
+  res.status(200).json({ name: userData.name, email: userData.email });
 
 });
 
