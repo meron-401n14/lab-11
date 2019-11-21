@@ -54,7 +54,7 @@ router.get('/github-oauth', async (req, res, next) => {
   let data = await githubMW(req);
 
   res.status(200).json({ name: data.name, email: data.email });
-
+  console.log(data);
 });
 
 module.exports = router;
